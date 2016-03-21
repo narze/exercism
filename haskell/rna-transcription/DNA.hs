@@ -5,7 +5,7 @@ _toRNA 'C' = 'G'
 _toRNA 'G' = 'C'
 _toRNA 'T' = 'A'
 _toRNA 'A' = 'U'
-_toRNA _ = ' '
+_toRNA _ = error "Unknown!"
 
 toRNA :: [Char] -> [Char]
 toRNA "" = ""
