@@ -8,5 +8,4 @@ _toRNA 'A' = 'U'
 _toRNA _ = error "Unknown!"
 
 toRNA :: [Char] -> [Char]
-toRNA "" = ""
-toRNA (x:xs) = _toRNA x : toRNA xs
+toRNA x = map _toRNA x
