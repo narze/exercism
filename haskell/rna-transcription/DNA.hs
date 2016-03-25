@@ -1,11 +1,12 @@
 module DNA (toRNA) where
 
-convert :: Char -> Char
-convert 'C' = 'G'
-convert 'G' = 'C'
-convert 'T' = 'A'
-convert 'A' = 'U'
-convert _ = error "Unknown!"
+toRNA :: String -> String
+toRNA = map convert where
+  convert x
+    | x == 'C' = 'G'
+    | x == 'G' = 'C'
+    | x == 'T' = 'A'
+    | x == 'A' = 'U'
+    | otherwise = error "Unknown!"
 
-toRNA :: [Char] -> [Char]
-toRNA x = map convert x
+
