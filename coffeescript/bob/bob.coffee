@@ -1,9 +1,9 @@
 class Bob
   hey: (msg) ->
-    switch msg.slice(-1)
-      when '!' then 'Whoa, chill out!'
-      when '?' then 'Sure.'
-      when '' then 'Fine. Be that way!'
-      else 'Whatever.'
+    return 'Fine. Be that way!' unless msg.replace(/ /g, '')
+    return 'Whatever.' unless /[a-zA-Z]/.exec msg
+    return 'Whoa, chill out!' if msg.toUpperCase() == msg
+    return 'Sure.' if msg.slice(-1) == '?'
+    return 'Whatever.'
 
 module.exports = Bob
