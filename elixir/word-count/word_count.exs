@@ -6,7 +6,7 @@ defmodule Words do
   """
   @spec count(String.t) :: map
   def count(sentence) do
-    Regex.replace(~r/[^\w\s\d-]/, sentence, "")
+    Regex.replace(~r/[^\w\s\d-]/u, sentence, "")
     |> String.downcase
     |> String.split(~r{[_ ]}, trim: true)
     |> Enum.reduce(%{}, fn(word, result) ->
