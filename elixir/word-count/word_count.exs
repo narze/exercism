@@ -10,7 +10,7 @@ defmodule Words do
     |> String.downcase
     |> String.split(~r{[_ ]}, trim: true)
     |> Enum.reduce(%{}, fn(word, result) ->
-      Map.put(result, word, (result[word] || 0) + 1)
+      Map.update(result, word, 1, &(&1 + 1))
     end)
   end
 end
