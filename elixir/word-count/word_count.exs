@@ -8,7 +8,7 @@ defmodule Words do
   def count(sentence) do
     words = String.split(sentence)
     Enum.reduce(words, %{}, fn(word, result) ->
-      Map.put(result, word, 1)
+      Map.put(result, word, (result[word] || 0) + 1)
     end)
   end
 end
