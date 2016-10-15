@@ -16,12 +16,6 @@ defmodule Accumulate do
   """
 
   @spec accumulate(list, (any -> any)) :: list
-  def accumulate(list, fun) do
-    case list do
-      [] -> []
-      list ->
-        [h | t] = list
-        [fun.(h) | accumulate(t, fun)]
-    end
-  end
+  def accumulate([], f), do: []
+  def accumulate([h|t], f), do: [f.(h) | accumulate(t, f)]
 end
