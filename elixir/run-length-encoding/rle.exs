@@ -37,6 +37,12 @@ defmodule RunLengthEncoder do
   def decode(string) do
     if string == "" do
       ""
+    else
+      result = Regex.named_captures(~r/(?<count>\d+)(?<char>.)/, string)
+      count = String.to_integer(result["count"])
+      length = String.length(result["char"] <> result["count"])
+
+      String.duplicate(result["char"], count) <> decode(String.slice(string, length..-1))
     end
   end
 end
