@@ -14,12 +14,13 @@ defmodule Sublist do
 
   def is_sublist(a, b) do
     cond do
-      a === [] -> true
-      b === [] -> false
-      Enum.at(a, 0) === Enum.at(b, 0) ->
-        is_sublist(Enum.slice(a, 1..-1), Enum.slice(b, 1..-1))
-      length(a) === length(b) ->
+      length(a) > length(b) ->
         false
+      Enum.at(a, 0) === Enum.at(b, 0) ->
+        cond do
+          a === Enum.slice(b, 0..length(a)-1) -> true
+          true -> is_sublist(a, Enum.slice(b, 1..-1))
+        end
       true ->
         is_sublist(a, Enum.slice(b, 1..-1))
     end
