@@ -5,18 +5,23 @@ defmodule Sublist do
   """
   def compare(a, b) do
     cond do
-      a == b -> :equal
-      a == [] -> :sublist
-      b == [] -> :superlist
+      a === b -> :equal
+      is_sublist(a, b) -> :sublist
+      is_sublist(b, a) -> :superlist
+      true -> :unequal
+    end
+  end
+
+  def is_sublist(a, b) do
+    cond do
+      a === [] -> true
+      b === [] -> false
+      Enum.at(a, 0) === Enum.at(b, 0) ->
+        is_sublist(Enum.slice(a, 1..-1), Enum.slice(b, 1..-1))
+      length(a) === length(b) ->
+        false
       true ->
-        cond do
-          Enum.at(a, 0) == Enum.at(b, 0) ->
-            compare(Enum.slice(a, 1..-1), Enum.slice(b, 1..-1))
-          length(b) == 1 ->
-            :unequal
-          true ->
-            compare(a, Enum.slice(b, 1..-1) ++ [Enum.at(b, 0)])
-        end
+        is_sublist(a, Enum.slice(b, 1..-1))
     end
   end
 end
