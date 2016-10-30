@@ -4,10 +4,12 @@ defmodule SumOfMultiples do
   """
   @spec to(non_neg_integer, [non_neg_integer]) :: non_neg_integer
   def to(limit, factors) do
-    Enum.reduce factors, 0, fn (factor, acc) ->
-      IO.puts factor
+    all_factors = Enum.flat_map factors, fn (factor) ->
       times = div(limit - 1, factor)
-      acc + Enum.reduce 0..times, 0, fn (x, accb) -> accb + x * factor end
+      Enum.map 0..times, fn (x) -> x * factor end
     end
+    all_factors
+      |> Enum.uniq
+      |> Enum.sum
   end
 end
