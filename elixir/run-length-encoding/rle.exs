@@ -7,42 +7,36 @@ defmodule RunLengthEncoder do
   "1H1O1R1S1E" => "HORSE"
   """
   @spec encode(String.t) :: String.t
+  def encode(""), do: ""
   def encode(string) do
-    if string == "" do
-      ""
-    else
-      head = String.first(string)
-      rest = String.slice(string, 1..-1)
+    { head, rest } = head_tail(string)
 
-      encode(rest, head, 1)
-    end
+    encode(rest, head, 1)
   end
 
   @spec encode(String.t, String.t, Integer.t) :: String.t
+  def encode("", char, count), do: to_string(count) <> char
   def encode(string, char, count) do
-    if string == "" do
-      to_string(count) <> char
+    { head, rest } = head_tail(string)
+
+    if char == head do
+      encode(rest, char, count + 1)
     else
-      head = String.first(string)
-      rest = String.slice(string, 1..-1)
-      if char == head do
-        encode(rest, char, count + 1)
-      else
-        to_string(count) <> char <> encode(rest, head, 1)
-      end
+      to_string(count) <> char <> encode(rest, head, 1)
     end
   end
 
   @spec decode(String.t) :: String.t
+  def decode(""), do: ""
   def decode(string) do
-    if string == "" do
-      ""
-    else
-      result = Regex.named_captures(~r/(?<count>\d+)(?<char>.)/, string)
-      count = String.to_integer(result["count"])
-      length = String.length(result["char"] <> result["count"])
+    result = Regex.named_captures(~r/(?<count>\d+)(?<char>.)/, string)
+    count = String.to_integer(result["count"])
+    length = String.length(result["char"] <> result["count"])
 
-      String.duplicate(result["char"], count) <> decode(String.slice(string, length..-1))
-    end
+    String.duplicate(result["char"], count) <> decode(String.slice(string, length..-1))
+  end
+
+  defp head_tail(string) do
+    String.split_at string, 1
   end
 end
