@@ -3,40 +3,36 @@ defmodule Roman do
   Convert the number to a roman number.
   """
   @spec numerals(pos_integer) :: String.t
-  def numerals(0), do: ""
-  def numerals(4), do: "IV"
-  def numerals(9), do: "IX"
-  def numerals(n) when n >= 1000 do
-    "M" <> numerals(n - 1000)
-  end
-  def numerals(n) when n >= 900 do
-    "CM" <> numerals(n - 900)
-  end
-  def numerals(n) when n >= 500 do
-    "D" <> numerals(n - 500)
-  end
-  def numerals(n) when n >= 400 do
-    "CD" <> numerals(n - 400)
-  end
-  def numerals(n) when n >= 100 do
-    "C" <> numerals(n - 100)
-  end
-  def numerals(n) when n >= 90 do
-    "XC" <> numerals(n - 90)
-  end
-  def numerals(n) when n >= 50 do
-    "L" <> numerals(n - 50)
-  end
-  def numerals(n) when n >= 40 do
-    "XL" <> numerals(n - 40)
-  end
-  def numerals(n) when n >= 10 do
-    "X" <> numerals(n - 10)
-  end
-  def numerals(n) when n >= 5 do
-    "V" <> numerals(n - 5)
-  end
   def numerals(n) do
-    numerals(n - 1) <> "I"
+    cond do
+      n >= 1000 ->
+        "M" <> numerals(n - 1000)
+      n >= 900 ->
+        "CM" <> numerals(n - 900)
+      n >= 500 ->
+        "D" <> numerals(n - 500)
+      n >= 400 ->
+        "CD" <> numerals(n - 400)
+      n >= 100 ->
+        "C" <> numerals(n - 100)
+      n >= 90 ->
+        "XC" <> numerals(n - 90)
+      n >= 50 ->
+        "L" <> numerals(n - 50)
+      n >= 40 ->
+        "XL" <> numerals(n - 40)
+      n >= 10 ->
+        "X" <> numerals(n - 10)
+      n == 9 ->
+        "IX" <> numerals(n - 9)
+      n >= 5 ->
+        "V" <> numerals(n - 5)
+      n == 4 ->
+        "IV" <> numerals(n - 4)
+      n >= 1 ->
+        "I" <> numerals(n - 1)
+      true ->
+        ""
+    end
   end
 end
