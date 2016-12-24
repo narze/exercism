@@ -13,9 +13,8 @@ defmodule Pangram do
   """
 
   @spec pangram?(String.t) :: boolean
-  def pangram?(""), do: false
   def pangram?(sentence) do
-    26 == Regex.replace(~r/[^a-zA-Z]/, sentence, "")
+    26 === Regex.replace(~r/[^a-zA-Z]/, sentence, "")
     |> String.downcase
     |> String.codepoints
     |> Enum.uniq
