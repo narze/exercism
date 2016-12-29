@@ -33,10 +33,7 @@ defmodule School do
   @spec sort(map) :: [{integer, [String.t]}]
   def sort(db) do
     db
-    |> Enum.sort_by(fn x -> elem(x, 0) end)
-    |> Enum.map(fn grade_students ->
-      {grade, students} = grade_students
-      {grade, Enum.sort(students)}
-    end)
+    |> Enum.sort
+    |> Enum.map(fn {grade, students} -> {grade, Enum.sort(students)} end)
   end
 end
