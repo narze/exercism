@@ -12,11 +12,11 @@ defmodule ListOps do
     1 + count(t)
   end
 
-  # Considered cheating
   @spec reverse(list) :: list
-  def reverse(l) do
-    l
-    |> Enum.reverse
+  def reverse(l), do: do_reverse(l, [])
+  defp do_reverse([], reversed), do: reversed
+  defp do_reverse([h | t], acc) do
+    do_reverse(t, [h | acc])
   end
 
   @spec map(list, (any -> any)) :: list
@@ -43,14 +43,16 @@ defmodule ListOps do
 
   # Not optimal & slow
   @spec append(list, list) :: list
-  def append(a, b) do
-    [a | b]
-    |> List.flatten
+  def append([], []), do: []
+  def append([], l), do: l
+  def append(l, []), do: l
+  def append([h | t], b) do
+    [h | append(t, b)]
   end
 
   @spec concat([[any]]) :: [any]
   def concat([]), do: []
-  def concat(ll) do
-    reduce(ll, [], fn l, acc -> append(acc, l) end)
+  def concat([hl | tl]) do
+    append(hl, concat(tl))
   end
 end
