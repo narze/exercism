@@ -1,7 +1,7 @@
 class HelloWorld {
-    static hello() {
-        // Your code here
-    }
+  static hello() {
+    return "Hello, World!";
+  }
 }
 
-export default HelloWorld
+export default HelloWorld;
