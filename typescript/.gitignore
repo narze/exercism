@@ -1,1 +1,7 @@
 node_modules
+.eslintignore
+.eslintrc
+.exercism
+jest.config.js
+tsconfig.json
+yarn.lock
