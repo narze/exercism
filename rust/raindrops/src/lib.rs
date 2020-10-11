@@ -16,6 +16,6 @@ pub fn raindrops(n: u32) -> String {
     if out.len() > 0 {
         out
     } else {
-        format!("{}", n)
+        n.to_string()
     }
 }
