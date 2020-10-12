@@ -7,17 +7,19 @@ pub fn nth(n: u32) -> u32 {
             if nth == n {
                 break count
             }
-            nth = nth + 1;
+            nth += 1;
         }
-        count = count + 1;
+        count += 1;
     };
 
     return result;
 }
 
 fn is_prime(n: u32) -> bool {
-    for factor in 2..(n - 1) {
-        if n % factor == 0 {
+    let sqr_plus_one: u32 = (n as f32).sqrt() as u32 + 1;
+
+    for i in 2..sqr_plus_one {
+        if n % i == 0 {
             return false;
         }
     }
