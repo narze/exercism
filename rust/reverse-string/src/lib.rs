@@ -1,9 +1,9 @@
+use unicode_reverse::reverse_grapheme_clusters_in_place;
+
 pub fn reverse(input: &str) -> String {
-    let mut output = "".to_string();
+    let mut output = input.to_string();
 
-    for i in input.chars().rev() {
-        output.push(i);
-    }
+    reverse_grapheme_clusters_in_place(&mut output);
 
-    return output;
+    output
 }
